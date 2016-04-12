@@ -6,8 +6,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
-    FLASKY_MAIL_SUBJECT_PREFIX = '[Gallery]'
-    FLASKY_MAIL_SENDER = 'Landpack <landpack@sina.com>'
+    LANDPACK_MAIL_SUBJECT_PREFIX = '[Gallery]'
+    LANDPACK_MAIL_SENDER = 'Landpack <landpack@sina.com>'
     FLASKY_ADMIN = os.environ.get('FLASKEY_ADMIN')
 
     @staticmethod
@@ -20,8 +20,8 @@ class DevelopmentConfig(Config):
     MAIL_SERVER = 'smtp.sina.com'
     MAIL_PORT = 25
     MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or 'landpack@sina.com'
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'landpack911!@#'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
                               'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
 
