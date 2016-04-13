@@ -1,0 +1,420 @@
+/* Main stylesheet */
+/* Fonts */
+@font-face {
+	font-family: 'SofiaProLightRegular';
+	src: url('/static/font/SofiaProLight-webfont.eot');
+	src: url('/static/font/SofiaProLight-webfont.eot?#iefix')
+		format('embedded-opentype'),
+		url('/static/font/SofiaProLight-webfont.woff') format('woff'),
+		url('/static/font/SofiaProLight-webfont.ttf') format('truetype'),
+		url('/static/font/SofiaProLight-webfont.svg#SofiaProLightRegular')
+		format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+/* Your customizations here */
+* { /*disables selection*/
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+body {
+	overflow: hidden;
+	color: #666666;
+}
+
+body,document,.vcenterer {
+	background: #F3F3F3;
+	height: 100%;
+	width: 100%;
+	font-family: 'SofiaProLightRegular', Arial, sans-serif;
+}
+
+.vcenterer {
+	top: 50%;
+	position: absolute;
+	height: 1px;
+	overflow: visible;
+}
+
+.container-fluid {
+	height: 570px;
+	position: relative;
+	top: -285px;
+}
+
+.row-fluid {
+	height: 100%;
+}
+
+#body_content,#navigation {
+	height: 100%;
+}
+
+/* boostrap update */
+a {
+	color: #666;
+}
+
+a:hover {
+	color: #A0000F;
+}
+
+select {
+	background-color: #FFFFFF;
+	border: 1px solid #CCCCCC;
+	border-radius: 3px 3px 3px 3px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+
+#templates {
+	display: none;
+}
+
+/* Navigation on the left*/
+#navigation {
+	border-right: solid 1px #CCC;
+	padding-right: 20px;
+	height: 515px;
+}
+
+.category-nav {
+	text-align: right;
+}
+
+.category-nav-element a {
+	text-transform: uppercase;
+	font-size: .8em;
+}
+
+.nav ul.nav {
+	padding-left: 1em;
+	margin: 0;
+}
+
+.nav-pills>.active>a,.nav-pills>.active>a:hover {
+	background-color: transparent;
+	color: #A0000F;
+}
+
+.nav>li>a:hover {
+	background-color: transparent;
+}
+
+.nav li .spacer {
+	display: block;
+	height: 2em;
+	width: 1em;
+}
+/* left right arrows */
+i.icon-pc-left,i.icon-pc-right {
+	display: inline-block;
+	height: 11px;
+	line-height: 11px;
+	vertical-align: text-top;
+	width: 14px;
+}
+
+i.icon-pc-right {
+	background: url('/static/img/arrow_r.png') no-repeat;
+}
+
+i.icon-pc-left {
+	background: url('/static/img/arrow_l.png') no-repeat;
+}
+
+/* Copyright */
+#copyright {
+	position: absolute;
+	bottom: 38px;
+	text-align: right;
+	margin: 0;
+	width: 20%;
+	font-size: .8em;
+}
+
+/* Page title */
+.category-nav .nav-header {
+	font-size: 1.4em;
+	padding: 0;
+}
+
+.category-nav .nav-header a {
+	font-variant: normal;
+	text-transform: lowercase;
+	font-weight: normal;
+	font-size: 1.35em;
+	padding: 10px;
+	padding-top: 0;
+	margin-top: 0;
+	padding-bottom: 45px;
+	padding-left: 0;
+}
+
+.category-nav .nav-header a small {
+	font-variant: normal;
+	font-size: .4em;
+	text-transform: uppercase;
+	font-weight: normal;
+	display: none;
+}
+
+.category-nav .nav-header>small {
+	font-size: .5em;
+	display: none;
+}
+
+.nav-header>small {
+	display: none;
+	padding-right: 12px;
+}
+
+/*   Non-Menu-Entry categories */
+#nme-categories {
+	padding: 0 12px;
+	margin-top: 20px;
+	text-align: right;
+}
+
+#nme-categories span {
+	position: relative;
+	top: -4px;
+	font-size: .85em;
+	color: #A0000F;
+}
+
+#nme-cat-title h4,#nme-cat-title p {
+	font-size: 11px;
+	font-style: italic;
+	text-align: right;
+	font-weight: 100;
+}
+
+#nme-cat-title {
+	bottom: 15%;
+	padding-right: 12px;
+	position: absolute;
+	text-align: right;
+	width: 20%;
+	display: none;
+}
+
+/* Content */
+#posts-container {
+	overflow: hidden;
+	height: 530px;
+}
+
+#posts-container.simple-scroll {
+	overflow-x: auto;
+	overflow-y: hidden;
+	height: 570px;
+}
+
+#posts {
+	height: 100%;
+	padding: 0;
+	/* 	position: relative; */
+	/* 	top: 575px; */
+}
+
+#posts-container.layer-posts .post {
+	position: absolute;
+}
+
+.post-pagination li.active a {
+	color: #A0000F;
+	background: #FFF;
+}
+
+.post.well {
+	float: left;
+	height: 515px;
+	max-width: 740px;
+	margin-bottom: 0;
+	background: none;
+	border: none;
+	margin-left: 20px;
+	padding: 0;
+	padding-bottom: 8px; /*for the img shadow */
+	box-shadow: none;
+}
+
+.post .img-data {
+
+}
+
+.post img { /* 	box-shadow: 0 8px 6px -6px black; */
+
+}
+
+.img-data,.img-info-container {
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+}
+
+.img-info-container {
+	position: relative;
+	top: -515px;
+}
+
+.img-info {
+	background-color: rgba(255, 255, 255, .85);
+	position: relative;
+	left: 100%;
+	padding: 15px;
+	max-height: 485px;
+	display: none;
+}
+
+.img-info.active {
+	left: 0;
+	display: block;
+}
+
+.img-info>article,.img-info>aside,.img-info>details,.img-info>figcaption,.img-info>figure,.img-info>footer,.img-info>header,.img-info>hgroup,.img-info>nav,.img-info>section
+	{
+	width: 100%;
+}
+
+ul.img-controls,ul.img-controls li {
+	margin: 0;
+	padding: 0;
+}
+
+ul.img-controls {
+	list-style: none;
+	float: left;
+	position: relative;
+	top: -1030px;
+	left: -15px;
+}
+
+ul.img-controls li {
+	cursor: pointer;
+}
+
+.img-info h2,.img-info p {
+	width: 100%;
+}
+
+/*   Text Post */
+.post.text-post { /* 	background-color: rgba(255, 255, 255, .8); */
+	width: 515px;
+}
+
+.post.text-post article,.post.text-post h4 {
+	padding: 2em;
+}
+
+/* Fullscreen image*/
+#fullscreen-image {
+	background-color: rgba(0, 0, 0, .8);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding: 5%;
+	display: none;
+}
+
+#fullscreen-image div.image-container {
+	position: fixed;
+	right: 0;
+	top: 0;
+}
+#fullscreen-image .info h3 {
+	font-weight: normal;
+}
+#fullscreen-image .info  {
+	color: #fff;
+	font-size: 1.2em;
+	text-align: center;
+	font-weight: normal;
+	position: fixed;
+	font-style: italic;
+	width: 15%;
+	bottom: 15%;
+}
+
+#fullscreen-image img {
+
+}
+
+#fullscreen-image .controls{
+	height: 92px;
+	width: 100%;
+	position: fixed;
+	top: 50%;
+	left: 0;
+}
+
+#fullscreen-image .controls a{
+	height: 70px;
+	width: 30px;
+	display: block;
+	position: relative;
+	top: -35px;
+	margin: 0 3em;
+}
+
+#fullscreen-image .controls a.next{
+	background: url(/static/img/next.png) no-repeat;
+	float: right;
+}
+
+#fullscreen-image .controls a.prev{
+	background: url(/static/img/prev.png) no-repeat;
+	float: left;
+}
+
+
+/* Loader */
+#loader {
+	width: 300px;
+	margin: 0 auto;
+	margin-top: 230px;
+}
+
+/* Pagination */
+.post-pagination {
+	margin: 0;
+	margin-left: auto;
+	margin-right: auto;
+	width: 400px;
+}
+
+.post-pagination ul {
+	width: 400px;
+}
+
+.pagination ul {
+	box-shadow: none;
+}
+
+.pagination .number-container {
+	width: 300px;
+	margin-left: 2px;
+	display: inline-block;
+	overflow: hidden;
+}
+
+.pagination .number-container>ul {
+	width: 1000px;
+	position: relative;
+}
+
+/*
+	Hide the picture destined to be displayed on FB
+*/
+.fbpic{
+	position: fixed;
+	top: -3000px;
+}
