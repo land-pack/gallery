@@ -8,7 +8,7 @@ class Config:
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     LANDPACK_MAIL_SUBJECT_PREFIX = '[Gallery]'
     LANDPACK_MAIL_SENDER = 'Landpack <landpack@sina.com>'
-    FLASKY_ADMIN = os.environ.get('FLASKEY_ADMIN')
+    LANDPACK_ADMIN = os.environ.get('LANDPACK_ADMIN') or '1878605504@qq.com'
 
     @staticmethod
     def init_app(app):

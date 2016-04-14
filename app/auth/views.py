@@ -1,7 +1,7 @@
 from flask import render_template, redirect, request, url_for, flash
 from flask.ext.login import login_user, login_required, logout_user, current_user
 from . import auth
-from .forms import LoginForm, RegistrationForm, ResetpasswordForm, ChangePasswordForm , ChangeEmailForm
+from .forms import LoginForm, RegistrationForm, ResetpasswordForm, ChangePasswordForm, ChangeEmailForm
 from ..models import User
 from app import db
 from ..email import send_mail
@@ -59,6 +59,8 @@ def confirm(token):
 @auth.before_app_request
 def before_request():
     if current_user.is_authenticated:
+        #: ping is working for update the last_seen field!
+        current_user.ping()
         if not current_user.confirmed \
                 and request.endpoint[:5] != 'auth.' \
                 and request.endpoint != 'static':
