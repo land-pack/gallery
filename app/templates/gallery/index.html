@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+
+{% block page_content %}
+
+<input id="file_uploader" type="file" name="file"/>
+
+<ul id="container">
+    {% for image in images %}
+    <img class="item" src="{{ url_for('static', filename=['gallery', image.filename ]|join('/')) }}"/>
+    {% endfor %}
+</ul>
+
+{% endblock %}

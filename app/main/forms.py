@@ -18,7 +18,7 @@ class EditProfileForm(Form):
 class EditProfileAdminForm(Form):
     email = StringField('Email', validators=[Required(), Length(1, 64), Email()])
     username = StringField('Username', validators=[
-        Required(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$',0,
+        Required(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
                                           'Usernames must have only letters, '
                                           'numbers, dots or underscores')])
     confirmed = BooleanField('Confirmed')
@@ -43,3 +43,8 @@ class EditProfileAdminForm(Form):
         if field.data != self.user.username and \
                 User.query.filter_by(username=field.data).first():
             raise ValueError('Username already in use')
+
+
+class PostForm(Form):
+    body = TextAreaField("What's on your mind?", validators=[Required()])
+    submit = SubmitField('Submit')
