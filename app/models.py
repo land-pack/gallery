@@ -3,7 +3,7 @@ from datetime import datetime
 from flask.ext.login import UserMixin, AnonymousUserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from flask import current_app, request
+from flask import current_app, request, send_from_directory
 from . import db
 from . import login_manager
 
@@ -214,3 +214,15 @@ class Post(db.Model):
                      author=u)
             db.session.add(p)
             db.session.commit()
+
+
+class Image(db.Model):
+    __tablename__ = 'images'
+    id = db.Column(db.Integer, primary_key=True)
+    url = db.Column(db.String)
+
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    def get_image(self):
+        return send_from_directory(self.url, '')

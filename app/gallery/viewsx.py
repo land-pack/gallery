@@ -16,6 +16,7 @@ def check_extension(extension):
 @gallery.route('/')
 @login_required
 def index():
+    print 'come here'
 
     return render_template('gallery/index.html')
 

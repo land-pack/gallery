@@ -1,14 +1,13 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
 
+{% block title %} Landpack - Gallery {% endblock %}
 
 {% block page_content %}
-
-<input id="file_uploader" type="file" name="file"/>
-
-<ul id="container">
-    {% for image in images %}
-    <img class="item" src="{{ url_for('static', filename=['gallery', image.filename ]|join('/')) }}"/>
-    {% endfor %}
-</ul>
+{% include '_images.html' %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination,'.index') }}
+</div>
 
 {% endblock %}

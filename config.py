@@ -8,8 +8,10 @@ class Config:
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     LANDPACK_MAIL_SUBJECT_PREFIX = '[Gallery]'
     LANDPACK_MAIL_SENDER = 'Landpack <landpack@sina.com>'
-    ADMIN = '1878605504@qq.com'
+    ADMIN = '123@qq.com'
     LANDPACK_POSTS_PER_PAGE = 20
+    UPLOAD_FOLDER = '/var/lib/flask-tmp/uploads'
+    ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'git'])
 
     @staticmethod
     def init_app(app):

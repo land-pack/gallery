@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-gallery = Blueprint('gallery',__name__)
+gallery = Blueprint('gallery', __name__)
 
-from . import viewsx
+from . import views
