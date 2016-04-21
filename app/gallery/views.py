@@ -1,12 +1,12 @@
 import os
 from flask import Blueprint, render_template, request, current_app, send_from_directory, \
-    redirect, url_for, flash
-from flask.ext.login import login_user, login_required
+    redirect, url_for, flash, abort
+from flask.ext.login import login_user, login_required, current_user
 from werkzeug import secure_filename
 import simplejson
-from ..models import Image
+from ..models import Image, User
 from . import gallery
-from .forms import ImageForm
+from .forms import ImageForm, ImageSettingForm
 from app import db
 
 
@@ -14,8 +14,17 @@ from app import db
 @gallery.route('/index', methods=['GET', 'POST'])
 def index():
     page = request.args.get('page', 1, type=int)
-    pagination = Image.query.order_by(Image.timestamp.desc()).paginate(
-            page, per_page=current_app.config['LANDPACK_POSTS_PER_PAGE'],
+    # posts = user.posts.order_by(Post.timestamp.desc()).all()
+    # pagination = Image.query.order_by(Image.timestamp.desc()).paginate(
+    #         page, per_page=current_app.config['LANDPACK_POSTS_PER_PAGE'],
+    #         error_out=False
+    # )
+    # pagination = Image.query.order_by(Image.timestamp.desc()).paginate(
+    user = User.query.filter_by(username=current_user.username).first_or_404()
+    if user is None:
+        abort(404)
+    pagination = user.image.order_by(Image.timestamp.desc()).paginate(
+            page, per_page=current_app.config['LANDPACK_IMAGE_PER_PAGE'],
             error_out=False
     )
     posts = pagination.items
@@ -26,14 +35,21 @@ def index():
 def upload():
     form = ImageForm()
     if request.method == 'POST':
-        filename = secure_filename(form.image.data.filename)
-        image_url = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
-        form.image.data.save(image_url)
-        image = Image(url=filename)
-        db.session.add(image)
-        db.session.commit()
-        flash('You have add a new photo!')
-        return redirect(url_for('.index'))
+        if form.image.data.filename:
+            filename = secure_filename(form.image.data.filename)
+            personal_dir = os.path.join(current_app.config['UPLOAD_FOLDER'], str(current_user.id))
+            if not os.path.exists(personal_dir):
+                os.mkdir(personal_dir)
+            image_url = os.path.join(personal_dir, filename)
+            form.image.data.save(image_url)
+            image = Image(url=filename, author=current_user._get_current_object())
+            db.session.add(image)
+            db.session.commit()
+            flash('You have add a new photo!')
+            return redirect(url_for('.index'))
+        else:
+            flash('You should choose a image to input')
+            return redirect(url_for('.upload'))
     else:
         filename = None
 
@@ -42,9 +58,19 @@ def upload():
 
 @gallery.route('/uploads/<filename>')
 def send_image(filename):
-    return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
+    personal_dir = current_app.config['UPLOAD_FOLDER'] + '/' + str(current_user.id)
+    return send_from_directory(personal_dir, filename)
 
 
 @gallery.route('/scale/<filename>')
 def scale_image(filename):
-    return send_from_directory(current_app.config['UPLOAD_FOLDER'], filename)
+    personal_dir = current_app.config['UPLOAD_FOLDER'] + '/' + str(current_user.id)
+    return send_from_directory(personal_dir, filename)
+
+
+@gallery.route('/detail/<filename>', methods=['GET', 'POST'])
+def image_detail(filename):
+    myform = ImageSettingForm()
+    if myform.validate_on_submit():
+        pass
+    return render_template('gallery/image_detail.html', filename=filename, myform=myform)

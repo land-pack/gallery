@@ -2,8 +2,9 @@
     {% for post in posts %}
     <li class="post">
         <div class="post-thumbnail">
-            <a href="{{ url_for('gallery.scale_image',filename=post.url)}}">
-                <img class="img-rounded profile-thumbnail" src="{{ url_for('gallery.send_image',filename=post.url) }}" width="40" height="50">
+            <a href="{{ url_for('gallery.image_detail',filename=post.url)}}">
+                <img class="img-rounded profile-thumbnail" src="{{ url_for('gallery.send_image',filename=post.url) }}"
+                     width="40" height="50">
             </a>
         </div>
         <div class="post-content">

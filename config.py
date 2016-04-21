@@ -10,6 +10,7 @@ class Config:
     LANDPACK_MAIL_SENDER = 'Landpack <landpack@sina.com>'
     ADMIN = '123@qq.com'
     LANDPACK_POSTS_PER_PAGE = 20
+    LANDPACK_IMAGE_PER_PAGE = 5
     UPLOAD_FOLDER = '/var/lib/flask-tmp/uploads'
     ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'git'])
 

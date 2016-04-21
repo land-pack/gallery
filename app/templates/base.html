@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {% block scripts %}
+    <script src="{{url_for('static',filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/moment.min.js') }}"></script>
+    {% endblock %}
     {{ moment.include_jquery() }}
     {{ moment.include_moment() }}
     <title>
@@ -83,7 +88,5 @@
 {% endblock %}
 
 
-<script src="{{url_for('static',filename='js/jquery.min.js') }}"></script>
-<script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
 </body>
 </html>

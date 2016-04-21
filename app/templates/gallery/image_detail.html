@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block title %} Landpack - Gallery {% endblock %}
+
+{% block page_content %}
+
+
+<div class="page-header">
+
+    <img class="img-rounded profile-thumbnail" src="{{ url_for('gallery.scale_image',filename=filename)}}"
+         width="250" height="300">
+    <div class="profile-header">
+        {{wtf.quick_form(myform)}}
+    </div>
+</div>
+
+{% endblock %}
