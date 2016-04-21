@@ -1,4 +1,5 @@
 import os
+from PIL import Image as Img
 from flask import Blueprint, render_template, request, current_app, send_from_directory, \
     redirect, url_for, flash, abort
 from flask.ext.login import login_user, login_required, current_user
@@ -10,16 +11,19 @@ from .forms import ImageForm, ImageSettingForm
 from app import db
 
 
+def gen_thumbnail(filename):
+    height = width = 200
+    personal_dir = os.path.join(current_app.config['UPLOAD_FOLDER'], str(current_user.id))
+    if os.path.exists(personal_dir):
+        original = Img.open(os.path.join(personal_dir, filename))
+        thumbnail = original.resize((width, height), Img.ANTIALIAS)
+        thumbnail.save(os.path.join(personal_dir, 'thumb_' + filename))
+
+
 @gallery.route('/', methods=['GET', 'POST'])
 @gallery.route('/index', methods=['GET', 'POST'])
 def index():
     page = request.args.get('page', 1, type=int)
-    # posts = user.posts.order_by(Post.timestamp.desc()).all()
-    # pagination = Image.query.order_by(Image.timestamp.desc()).paginate(
-    #         page, per_page=current_app.config['LANDPACK_POSTS_PER_PAGE'],
-    #         error_out=False
-    # )
-    # pagination = Image.query.order_by(Image.timestamp.desc()).paginate(
     user = User.query.filter_by(username=current_user.username).first_or_404()
     if user is None:
         abort(404)
@@ -43,6 +47,7 @@ def upload():
             image_url = os.path.join(personal_dir, filename)
             form.image.data.save(image_url)
             image = Image(url=filename, author=current_user._get_current_object())
+            gen_thumbnail(filename)
             db.session.add(image)
             db.session.commit()
             flash('You have add a new photo!')
@@ -59,7 +64,7 @@ def upload():
 @gallery.route('/uploads/<filename>')
 def send_image(filename):
     personal_dir = current_app.config['UPLOAD_FOLDER'] + '/' + str(current_user.id)
-    return send_from_directory(personal_dir, filename)
+    return send_from_directory(personal_dir, 'thumb_' + filename)
 
 
 @gallery.route('/scale/<filename>')
