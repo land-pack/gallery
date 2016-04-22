@@ -13,7 +13,7 @@ class ImageForm(Form):
 
 
 class ImageSettingForm(Form):
-    name = StringField('A new Name For the Image', validators=[Optional(), Length(1, 32)])
+    name = StringField('The context of watermark', validators=[Optional(), Length(1, 32)])
     alpha = IntegerField('Alpha Value', default=0.5)
     watermark_shape = StringField('WaterMark Shape', validators=[Length(1, 32)])
     db = SelectField('DB range', choices=[('db1', 'bd1'), ('db2', 'db2'), ('db3', 'db3')], validators=[DataRequired()]
