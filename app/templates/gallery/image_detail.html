@@ -7,13 +7,40 @@
 {% block page_content %}
 
 
+<script>
+    function preview(img, selection) {
+        var scaleX = 100 / selection.width;
+        var scaleY = 100 / selection.height;
+        $('#biuuu + div > img').css({
+            width: Math.round(scaleX * 400) + 'px',
+            height: Math.round(scaleY * 300) + 'px',
+            marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
+            marginTop: '-' + Math.round(scaleY * selectionColor.y1) + 'px'
+        });
+    }
+
+    $(document).ready(function () {
+        $('<div><img src="biuuu.jpg" style="position:relative;"/></div>')
+                .css({
+                    float: 'left',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    width: '100px',
+                    height: '100px'
+                })
+                .insertAfter($('#biuuu'));
+    });
+    $(window).load(function () {
+        $('#biuuu').imgAreaSelect({aspectRatio: '1:1', onSelectChange: preview});
+
+    });
+</script>
 <div class="page-header">
 
-    <img class="img-rounded profile-thumbnail" src="{{ url_for('gallery.scale_image',filename=filename)}}"
-         width="250" height="300">
+    <img id="biuuu" class="img-rounded profile-thumbnail" src="{{ url_for('gallery.scale_image',filename=filename)}}"
+         width="250" height="300" style="float: left; margin-right:10px;"/>
     <div class="profile-header">
         {{wtf.quick_form(myform)}}
     </div>
 </div>
-
 {% endblock %}

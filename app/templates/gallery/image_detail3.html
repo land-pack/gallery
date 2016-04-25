@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block page_content %}
+
+<link href="{{ url_for('static',filename='css/pc.css') }}" rel="stylesheet">
+<body onload="prettyPrint();">
+
+<div id="root">
+    <div id="header">
+        <h1><a href="/">odyniec.net</a></h1>
+
+        <div id="nav">
+
+            <ul>
+
+                <li>
+
+                    <a href="http://odyniec.net/about/">About</a>
+                </li>
+
+                <li>
+
+                    <a href="http://odyniec.net/blog/">Blog</a>
+                </li>
+
+                <li class="active">
+
+                    <a href="http://odyniec.net/projects/">Projects</a>
+                </li>
+
+                <li>
+
+                    <a href="http://odyniec.net/writings/">Writings</a>
+                </li>
+
+                <li>
+
+                    <a href="http://odyniec.net/contact/">Contact</a>
+                </li>
+            </ul>
+        </div> <!-- /#nav -->
+    </div> <!-- /#header -->
+
+    <div id="content" class="container">
+        <script type="text/javascript">
+            $(function () {
+                $('#ladybug_ant').imgAreaSelect({maxWidth: 200, maxHeight: 150, handles: true});
+                $('#bee').imgAreaSelect({aspectRatio: '4:3', handles: true});
+                $('#duck').imgAreaSelect({x1: 120, y1: 90, x2: 280, y2: 210});
+            });
+        </script>
+
+        <div class="container">
+            <a class="button home" href=".">imgAreaSelect Home</a>
+            <h1>imgAreaSelect Examples</h1>
+        </div>
+
+        <ul class="subpages container">
+            <li class="active"><span>Simple Usage</span>
+                <ul>
+                    <li><a href="#width-and-height-limits">Width and Height Limits</a></li>
+                    <li><a href="#fixed-aspect-ratio">Fixed Aspect Ratio</a></li>
+                    <li><a href="#setting-initial-selection">Setting Initial Selection</a></li>
+                </ul>
+            </li>
+            <li><a href="examples-callback.html">Callback Functions</a></li>
+            <li><a href="examples-advanced.html">Advanced Usage</a></li>
+        </ul>
+
+        <h2>Simple Usage Examples</h2>
+
+        <a name="width-and-height-limits"></a>
+        <h3>Width and Height Limits</h3>
+
+        <p>
+            The <code>minWidth</code>, <code>minHeight</code>, <code>maxWidth</code> and
+            <code>maxHeight</code> options allow you to place limits on the size of the
+            selection area. In this example, the maximum size of the
+            area is <code>200</code>x<code>150</code> pixels.
+        </p>
+
+<pre class="prettyprint">$(document).ready(function () {
+  $('#ladybug_ant').imgAreaSelect({ <em>maxWidth: 200</em>, <em>maxHeight: 150</em>, handles: true });
+});</pre>
+
+        <p style="text-align: center;">
+            <img id="ladybug_ant" src="ladybug_ant.jpg" alt="A ladybug being harassed by an ant."
+                 title="A ladybug being harassed by an ant."/>
+        </p>
+
+        <a name="fixed-aspect-ratio"></a>
+        <h3>Fixed Aspect Ratio</h3>
+
+        <p>
+            To make the selection area keep exact proportions, use the <code>aspectRatio</code>
+            option. Here it is set to <code>"4:3"</code>.
+        </p>
+
+<pre class="prettyprint">$(document).ready(function () {
+  $('#bee').imgAreaSelect({ <em>aspectRatio: '4:3'</em>, handles: true });
+});</pre>
+
+        <p style="text-align: center;">
+            <img id="bee" src="bee.jpg" alt="Busy bee" title="Busy bee"/>
+        </p>
+
+        <a name="setting-initial-selection"></a>
+        <h3>Setting Initial Selection</h3>
+
+        <p>
+            Use the <code>x1</code>, <code>y1</code>, <code>x2</code>, and
+            <code>y2</code> options to set the initial selection area.
+        </p>
+
+<pre class="prettyprint">$(document).ready(function () {
+  $('#duck').imgAreaSelect({ <em>x1: 120, y1: 90, x2: 280, y2: 210</em> });
+});</pre>
+
+        <p style="text-align: center;">
+            <img id="duck" src="{{ url_for('gallery.scale_image',filename=filename)}}"
+                 alt="Why did the duck cross the road?"
+                 title="Why did the duck cross the road?"/>
+        </p>
+
+    </div> <!-- /#content -->
+</div> <!-- /#root -->
+</body>
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-3683332-2");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+</script></html>
+{% endblock %}

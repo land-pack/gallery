@@ -78,4 +78,4 @@ def image_detail(filename):
     myform = ImageSettingForm()
     if myform.validate_on_submit():
         pass
-    return render_template('gallery/image_detail.html', filename=filename, myform=myform)
+    return render_template('gallery/image_detail2.html', filename=filename, myform=myform)

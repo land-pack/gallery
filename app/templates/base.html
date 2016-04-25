@@ -5,6 +5,9 @@
     <script src="{{url_for('static',filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static',filename='js/moment.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/jquery.imgareaselect.js') }}"></script>
+     <script src="{{ url_for('static',filename='js/jquery.imgareaselect.pack.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/prettify.js') }}"></script>
     {% endblock %}
     {{ moment.include_jquery() }}
     {{ moment.include_moment() }}
@@ -16,6 +19,10 @@
     <!-- Bootstrap -->
     <link href="{{ url_for('static',filename='css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
     <link href="{{ url_for('static',filename='css/styles.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/imgareaselect-default.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/index.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/img-animated.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/pc.css') }}" rel="stylesheet">
 </head>
 <body>
 
