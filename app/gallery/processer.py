@@ -70,29 +70,9 @@ def generate_watermark(current_app, current_user, filename, text, x, y, alpha=0.
     y_scale = y / 300.0
     real_x = im.size[0] * x_scale  # origin x
     real_y = im.size[1] * y_scale  # origin y
-    print real_x
-    print real_y
     new_img = watermark(im, mark, int(real_x), int(real_y), alpha, opacity=myopacity)
     if new_img:
         new_img_name = 'mark_' + filename
         new_img.save(os.path.join(personal_dir, new_img_name))
     else:
         print "Sorry, Failed."
-
-
-def main():
-    text = u'Linsir.水印.\nvi5i0n@hotmail.com'
-    # text = open('README.md').read().decode('utf-8')
-    # print text
-    im = Image.open('origal.png')
-    mark = text2img(text)
-    image = watermark(im, mark, 'center', 0.9)
-    if image:
-        image.save('watermark.png')
-        image.show()
-    else:
-        print "Sorry, Failed."
-
-
-if __name__ == '__main__':
-    main()
