@@ -82,8 +82,8 @@ def image_detail(filename):
         print form.x1.data
         # TODO assume your have process image , cost some time
         text = form.text.data
-        x = form.x2.data
-        y = form.y2.data
+        x = form.x1.data
+        y = form.y1.data
         font_color = form.font_color.data
         opacity = form.alpha.data
         generate_watermark(current_app=current_app, current_user=current_user, filename=filename, text=text, x=x, y=y,
