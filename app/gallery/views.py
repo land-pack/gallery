@@ -10,6 +10,7 @@ from ..models import Image, User
 from . import gallery
 from .forms import ImageForm, ImageSettingForm, ImageDetailForm
 from app import db
+from .processer import generate_watermark
 
 
 def gen_thumbnail(filename):
@@ -80,7 +81,13 @@ def image_detail(filename):
     if form.validate_on_submit():
         print form.x1.data
         # TODO assume your have process image , cost some time
-        time.sleep(4)
+        text = form.text.data
+        x = form.x2.data
+        y = form.y2.data
+        font_color = form.font_color.data
+        opacity = form.alpha.data
+        generate_watermark(current_app=current_app, current_user=current_user, filename=filename, text=text, x=x, y=y,
+                           font_color=font_color, myopacity=opacity)
         return redirect(url_for('.download', filename=filename))  # Download page ///
     return render_template('gallery/image_detail2.html', filename=filename, form=form)
 
@@ -88,4 +95,4 @@ def image_detail(filename):
 @gallery.route('/download/<filename>', methods=['GET', 'POST'])
 def download(filename):
     personal_dir = current_app.config['UPLOAD_FOLDER'] + '/' + str(current_user.id)
-    return send_from_directory(personal_dir, filename, as_attachment=True)
+    return send_from_directory(personal_dir, 'mark_' + filename, as_attachment=True)

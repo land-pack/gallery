@@ -1,5 +1,5 @@
 from flask.ext.wtf import Form
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField, SelectField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField, SelectField, FloatField
 from wtforms.validators import Required, Email, Length, Regexp, EqualTo, Optional, DataRequired
 from wtforms import ValidationError
 from flask_wtf.file import FileField
@@ -23,7 +23,10 @@ class ImageSettingForm(Form):
 
 
 class ImageDetailForm(Form):
-    name = StringField('The context of watermark', validators=[Optional(), Length(1, 32)])
+    text = StringField('The context of watermark', default="Hello AK", validators=[Optional(), Length(1, 32)])
+    font_color = SelectField('Water Mark Color', choices=[('Blue', 'Blue'), ('Red', 'Red'), ('Yellow', 'Yellow')])
+    font_size = IntegerField('Font Size', default=25)
+    alpha = FloatField('Alpha Value', default=0.5)
     x1 = IntegerField('X1', default=0)
     y1 = IntegerField('Y1', default=0)
     x2 = IntegerField('X2', default=0)
