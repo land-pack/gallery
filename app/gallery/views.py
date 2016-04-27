@@ -1,4 +1,5 @@
 import os
+import time
 from PIL import Image as Img
 from flask import Blueprint, render_template, request, current_app, send_from_directory, \
     redirect, url_for, flash, abort
@@ -7,7 +8,7 @@ from werkzeug import secure_filename
 import simplejson
 from ..models import Image, User
 from . import gallery
-from .forms import ImageForm, ImageSettingForm
+from .forms import ImageForm, ImageSettingForm, ImageDetailForm
 from app import db
 
 
@@ -75,7 +76,16 @@ def scale_image(filename):
 
 @gallery.route('/detail/<filename>', methods=['GET', 'POST'])
 def image_detail(filename):
-    myform = ImageSettingForm()
-    if myform.validate_on_submit():
-        pass
-    return render_template('gallery/image_detail2.html', filename=filename, myform=myform)
+    form = ImageDetailForm()
+    if form.validate_on_submit():
+        print form.x1.data
+        # TODO assume your have process image , cost some time
+        time.sleep(4)
+        return redirect(url_for('.download', filename=filename))  # Download page ///
+    return render_template('gallery/image_detail2.html', filename=filename, form=form)
+
+
+@gallery.route('/download/<filename>', methods=['GET', 'POST'])
+def download(filename):
+    personal_dir = current_app.config['UPLOAD_FOLDER'] + '/' + str(current_user.id)
+    return send_from_directory(personal_dir, filename, as_attachment=True)

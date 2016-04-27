@@ -2,45 +2,116 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% import "_macros.html" as macros %}
 
-{% block title %} Landpack - Gallery {% endblock %}
-
 {% block page_content %}
+<!--<script src='http://odyniec.net/projects/imgareaselect/jquery.imgareaselect.pack.js'></script>-->
+<script src="{{ url_for('static',filename='js/gallery/jquery.imgareaselect.pack.js') }}"></script>
+<script type="text/javascript">
 
-
-<script>
     function preview(img, selection) {
+        if (!selection.width || !selection.height)
+            return;
+
         var scaleX = 100 / selection.width;
         var scaleY = 100 / selection.height;
-        $('#biuuu + div > img').css({
-            width: Math.round(scaleX * 400) + 'px',
-            height: Math.round(scaleY * 300) + 'px',
-            marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px',
-            marginTop: '-' + Math.round(scaleY * selectionColor.y1) + 'px'
+
+        $('#preview img').css({
+            width: Math.round(scaleX * 300),
+            height: Math.round(scaleY * 300),
+            marginLeft: -Math.round(scaleX * selection.x1),
+            marginTop: -Math.round(scaleY * selection.y1)
         });
+
+        $('#x1').val(selection.x1);
+        $('#y1').val(selection.y1);
+        $('#x2').val(selection.x2);
+        $('#y2').val(selection.y2);
+        $('#w').val(selection.width);
+        $('#h').val(selection.height);
     }
 
     $(document).ready(function () {
-        $('<div><img src="biuuu.jpg" style="position:relative;"/></div>')
-                .css({
-                    float: 'left',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    width: '100px',
-                    height: '100px'
-                })
-                .insertAfter($('#biuuu'));
+        $('#myphoto').imgAreaSelect({
+            aspectRatio: '1:1', handles: true,
+            fadeSpeed: 200, onSelectChange: preview
+        });
     });
-    $(window).load(function () {
-        $('#biuuu').imgAreaSelect({aspectRatio: '1:1', onSelectChange: preview});
 
-    });
 </script>
-<div class="page-header">
 
-    <img id="biuuu" class="img-rounded profile-thumbnail" src="{{ url_for('gallery.scale_image',filename=filename)}}"
-         width="250" height="300" style="float: left; margin-right:10px;"/>
-    <div class="profile-header">
-        {{wtf.quick_form(myform)}}
+
+<div class="container demo">
+    <div style="float: left; width: 50%;">
+        <p class="instructions">
+            Click and drag on the image to select an area.
+        </p>
+
+        <div class="frame" style="margin: 0 0.3em; width: 300px; height: 300px;">
+            <img id="myphoto" src="{{ url_for('gallery.scale_image',filename=filename)}}"
+                 style="width: 300px; height: 300px;"/>
+        </div>
+    </div>
+
+    <div style="float: left; width: 50%;">
+        <p style="font-size: 110%; font-weight: bold; padding-left: 0.1em;">
+            Selection Preview
+        </p>
+
+        <div class="frame"
+             style="margin: 0 1em; width: 100px; height: 100px;">
+            <div id="preview" style="width: 100px; height: 100px; overflow: hidden;">
+                <img src="{{ url_for('gallery.scale_image',filename=filename)}}" style="width: 100px; height: 100px;"/>
+            </div>
+        </div>
+        <form method="POST">
+            <table style="margin-top: 1em;">
+                <thead>
+                <tr>
+                    <th colspan="2" style="font-size: 110%; font-weight: bold; text-align: left; padding-left: 0.1em;">
+                        Coordinates
+                    </th>
+                    <th colspan="2" style="font-size: 110%; font-weight: bold; text-align: left; padding-left: 0.1em;">
+                        Dimensions
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="width: 10%;"><b>X<sub>1</sub>:</b></td>
+                    <td style="width: 30%;"><input type="text" id="x1" value="-"/></td>
+                    <td style="width: 20%;"><b>Width:</b></td>
+                    <td><input type="text" value="-" id="w"/></td>
+                </tr>
+                <tr>
+                    <td><b>Y<sub>1</sub>:</b></td>
+                    <td><input type="text" id="y1" value="-"/></td>
+                    <td><b>Height:</b></td>
+                    <td><input type="text" id="h" value="-"/></td>
+                </tr>
+                <tr>
+                    <td><b>X<sub>2</sub>:</b></td>
+                    <td><input type="text" id="x2" value="-"/></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><b>Y<sub>2</sub>:</b></td>
+                    <td><input type="text" id="y2" value="-"/></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+
+                <tr>
+                    <td><b>Next:</b></td>
+                    <td><input type="button" id="ok" value="Go"/></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
     </div>
 </div>
+
+
 {% endblock %}

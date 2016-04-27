@@ -20,3 +20,14 @@ class ImageSettingForm(Form):
                      )  # 'db1', 'db2', 'db3', 'db4', 'db5', 'db6'
 
     submit = SubmitField('Go')
+
+
+class ImageDetailForm(Form):
+    name = StringField('The context of watermark', validators=[Optional(), Length(1, 32)])
+    x1 = IntegerField('X1', default=0)
+    y1 = IntegerField('Y1', default=0)
+    x2 = IntegerField('X2', default=0)
+    y2 = IntegerField('Y2', default=0)
+    width = IntegerField('width', default=0)
+    height = IntegerField('height', default=0)
+    submit = SubmitField("Go")
