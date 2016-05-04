@@ -4,10 +4,17 @@ import os
 from PIL import Image, ImageEnhance, ImageDraw, ImageFont
 
 
+# TODO Make a select for the docker ubuntu Language
+# DejaVuSans-Bold.ttf  DejaVuSansMono-Bold.ttf  DejaVuSerif-Bold.ttf
+# DejaVuSans.ttf       DejaVuSansMono.ttf       DejaVuSerif.ttf
 def text2img(text, font_color="Blue", font_size=25, FontString='Helvetica'):
-    """生成内容为 TEXT 的水印"""
+    """You should check the system wether have the font type"""
 
-    font = ImageFont.truetype(FontString, font_size)
+    try:
+        font = ImageFont.truetype(FontString, font_size)
+    except IOError:
+        # DejaVuSans.ttf work on the docker system!
+        font = ImageFont.truetype("DejaVuSans.ttf", font_size)
     # 多行文字处理
     text = text.split('\n')
     mark_width = 0
