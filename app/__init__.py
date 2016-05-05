@@ -6,6 +6,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.pagedown import PageDown
 from config import config
+from log import create_logger
 
 bootstrap = Bootstrap()
 mail = Mail()
@@ -39,4 +40,10 @@ def create_app(config_name):
     app.register_blueprint(gallery_blueprint, url_prefix='/gallery')
 
     # attach routes and custom error pages here
+
+
+    # addHandler to app
+    import logging
+    handler = create_logger('/var/log/gallery.log', level=logging.INFO)
+    app.logger.addHandler(handler)
     return app

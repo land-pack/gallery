@@ -1,5 +1,6 @@
-from flask import render_template, redirect, request, url_for, flash
+from flask import render_template, redirect, request, url_for, flash, current_app
 from flask.ext.login import login_user, login_required, logout_user, current_user
+
 from . import auth
 from .forms import LoginForm, RegistrationForm, ResetpasswordForm, ChangePasswordForm, ChangeEmailForm
 from ..models import User
@@ -9,6 +10,7 @@ from ..email import send_mail
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    current_app.logger.info("Some one login")
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
