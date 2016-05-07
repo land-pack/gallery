@@ -86,6 +86,8 @@ def image_detail(filename):
         y = form.y1.data
         font_color = form.font_color.data
         opacity = form.alpha.data
+        import time
+        time.sleep(3)
         generate_watermark(current_app=current_app, current_user=current_user, filename=filename, text=text, x=x, y=y,
                            font_color=font_color, myopacity=opacity)
         return redirect(url_for('.download', filename=filename))  # Download page ///

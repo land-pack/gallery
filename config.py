@@ -20,7 +20,7 @@ class Config:
 
 
 class DevelopmentConfig(Config):
-    DEBUG = True
+    # DEBUG = True
     MAIL_SERVER = 'smtp.sina.com'
     MAIL_PORT = 25
     MAIL_USE_TLS = True
