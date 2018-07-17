@@ -1,6 +1,6 @@
 import hashlib
 from datetime import datetime
-from flask.ext.login import UserMixin, AnonymousUserMixin
+from flask_login import UserMixin, AnonymousUserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app, request, send_from_directory
@@ -33,7 +33,7 @@ class Role(db.Model):
     name = db.Column(db.String(64), unique=True)
     default = db.Column(db.Boolean, default=False, index=True)
     permissions = db.Column(db.Integer)
-    users = db.relationship('User', backref='role', lazy='dynamic')
+    users = db.relationship('User', backref='role', lazy='subquery')
 
     @staticmethod
     def insert_roles():
@@ -74,18 +74,18 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     confirmed = db.Column(db.Boolean, default=False)
-    posts = db.relationship('Post', backref='author', lazy='dynamic')
-    image = db.relationship('Image', backref='author', lazy='dynamic')
+    posts = db.relationship('Post', backref='author', lazy='subquery')
+    image = db.relationship('Image', backref='author', lazy='subquery')
     followed = db.relationship('Follow',
                                foreign_keys=[Follow.follower_id],
                                backref=db.backref('follower', lazy='joined'),
-                               lazy='dynamic',
+                               #lazy='dynamic',
                                cascade='all, delete-orphan')
 
     followers = db.relationship('Follow',
                                 foreign_keys=[Follow.followed_id],
-                                backref=db.backref('followed', lazy='joined'),
-                                lazy='dynamic',
+                                backref=db.backref('followed', lazy='subquery'),
+                                #lazy='dynamic',
                                 cascade='all, delete-orphan')
 
     def __init__(self, **kwargs):
@@ -249,8 +249,8 @@ login_manager.anonymous_user = AnonymousUser
 class Post(db.Model):
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
-    body = db.Column(db.Text)
-    body_html = db.Column(db.Text)
+    body = db.Column(db.Text())
+    body_html = db.Column(db.Text())
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 

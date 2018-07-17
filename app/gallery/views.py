@@ -3,7 +3,7 @@ import time
 from PIL import Image as Img
 from flask import Blueprint, render_template, request, current_app, send_from_directory, \
     redirect, url_for, flash, abort
-from flask.ext.login import login_user, login_required, current_user
+from flask_login import login_user, login_required, current_user
 from werkzeug import secure_filename
 import simplejson
 from ..models import Image, User

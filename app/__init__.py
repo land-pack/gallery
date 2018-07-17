@@ -1,10 +1,10 @@
 from flask import Flask, render_template
-from flask.ext.bootstrap import Bootstrap
-from flask.ext.mail import Mail
-from flask.ext.moment import Moment
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import LoginManager
-from flask.ext.pagedown import PageDown
+from flask_bootstrap import Bootstrap
+from flask_mail import Mail
+from flask_moment import Moment
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from flask_pagedown import PageDown
 from config import config
 from log import create_logger
 
@@ -44,6 +44,6 @@ def create_app(config_name):
 
     # addHandler to app
     import logging
-    handler = create_logger('/var/log/gallery.log', level=logging.INFO)
+    handler = create_logger(app.config['LOG_FOLDER'], level=logging.INFO)
     app.logger.addHandler(handler)
     return app
